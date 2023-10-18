@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess and Win</title>
+  <link rel="stylesheet" href="GuessingGameStyles.css">
+</head>
+<body>
+  <h1 class="center-text">Guess and Win</h1>
+  <p>Which number am I thinking of between 1 and 100?</p>
+  <p>Guess a number:</p>
+  <input type="number" name="guess" id="guessNumber">
+  <p id="result"></p>
+  <p class="center-text">
+    <button id="checkButton">Get Score</button>
+  </p>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById('checkButton').addEventListener('click', checkGuesses);
+    });
+
+    function updateResult(message) {
+      document.getElementById('result').innerHTML = message;
+    }
+
+    function checkGuesses() {
+      let guessNumber = parseInt(document.getElementById('guessNumber').value, 10);
+      
+      if (isNaN(guessNumber) || guessNumber < 1 || guessNumber > 100) {
+        updateResult('Please enter a valid number between 1 and 100.');
+        return;
+      }
+      
+      let computerNumber = Math.floor(Math.random() * 100) + 1;
+
+      if (guessNumber === computerNumber) {
+        updateResult('Congratulations! You have won!');
+      } else if (guessNumber > computerNumber) {
+        updateResult('Your guess is too high!');
+      } else if (guessNumber < computerNumber) {
+        updateResult('Your guess is too low!');
+      }
+    }
+  </script>
+</body>
+</html>
